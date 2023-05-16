@@ -16,13 +16,13 @@ module.exports = function checkRegistrationFields(data) {
     errors.email = "Email is required";
   }
   if (!Validator.isEmail(data.email)) {
-    errors.email = "Email address is invalid";
+      errors.email = data.email;//"Email address is invalid";
   }
   if (Validator.isEmpty(data.password1)) {
     errors.password1 = "Password is required";
   }
   if (!Validator.isLength(data.password1, { min: 8, max: 120 })) {
-    errors.password1 = "Passwords must be greater than 8 characters";
+      errors.password1 = data.password1;//"Passwords must be greater than 8 characters";
   }
   if (Validator.isEmpty(data.password2)) {
     errors.password2 = "Confirmation password is required";
