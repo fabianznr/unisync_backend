@@ -24,13 +24,22 @@ router.post("/register", async (req, res) => {
         bcrypt.hash(req.body.password1, salt, async (err, hash) => {
             if (err) throw err;
             try {
-                const result = await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?,?,?)", [req.body.user, hash, req.body.email]);
+                await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?,?,?)", [req.body.user, hash, req.body.email]);
                 res.status(200).send("Query sucessfull");
             } catch (err) {
-                throw err;
+                res.status(500).send(err)
             }
         })
     })
+});
+
+router.get("/users", async (req, res) => {
+    try {
+        const result = await db.pool.query("Select * from Account");
+        res.status(200).send(result)
+    } catch (err) {
+        res.status(500).send(err)
+    }
 });
 
 module.exports = router;

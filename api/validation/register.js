@@ -10,7 +10,6 @@ module.exports = function checkRegistrationFields(data) {
   // else if empty, data.email = ""
   data.email = !ifEmpty(data.email) ? data.email : "";
   data.password1 = !ifEmpty(data.password1) ? data.password1 : "";
-  data.password2 = !ifEmpty(data.password2) ? data.password2 : "";
 
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email is required";
@@ -23,12 +22,6 @@ module.exports = function checkRegistrationFields(data) {
   }
   if (!Validator.isLength(data.password1, { min: 8, max: 120 })) {
       errors.password1 = data.password1;//"Passwords must be greater than 8 characters";
-  }
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = "Confirmation password is required";
-  }
-  if (!Validator.equals(data.password1, data.password2)) {
-    errors.password2 = "Both password fields must match";
   }
 
   // Return the errors from the checkRegistrationFields function
