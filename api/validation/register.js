@@ -3,7 +3,7 @@ const Validator = require("validator");
 const empty = require("./checkEmpty");
 const db = require("../database");
 
-module.exports = function checkRegistrationFields(data) {
+module.exports = async function checkRegistrationFields(data) {
 
   let errors = {};
 
