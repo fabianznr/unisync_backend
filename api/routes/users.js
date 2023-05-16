@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
             if (err) throw err;
             try {
                 const result = await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?,?,?)", [req.body.user, hash, req.body.email]);
-                res.send(result);
+                res.status(200).send("Query sucessfull");
             } catch (err) {
                 throw err;
             }
