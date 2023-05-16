@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const db = require("./database");
 
 const checkRegistrationFields = require("./validation/register");
@@ -12,13 +11,7 @@ router.post("/register", async (req, res) => {
     if (!isValid) {
         return res.status(400).send(errors);
     }
-    let token;
-    crypto.randomBytes(48, (err, buf) => {
-        token = buf.toString("base64")
-            .replace(/\//g, "")
-            .replace(/\+/g, "-");
-        return token;
-    });
+
     bcrypt.genSalt(12, async (err, salt) => {
         if (err) throw err;
         bcrypt.hash(req.body.password1, salt, async (err, hash) => {
