@@ -22,8 +22,9 @@ module.exports = function checkRegistrationFields(data) {
             if (result.length > 0) {
                 errors.email = "This Email is already in use";
             }
+            errors.email = result;
         } catch (err) {
-            errors.email = err
+            errors.email = err;
         }
         
 
