@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
     const { errors, isValid } = checkRegistrationFields(req.body);
 
     if (!isValid) {
-        return res.status(400).json(errors);
+        return res.status(400).send(errors);
     }
     let token;
     crypto.randomBytes(48, (err, buf) => {
