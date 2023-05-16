@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const crypt = require("crypt");
+const crypto = require("crypto");
 const db = require("../database");
 
 const checkRegistrationFields = require("../validation/register");
