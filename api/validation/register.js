@@ -8,7 +8,7 @@ module.exports = async function checkRegistrationFields(data) {
     let errors = {};
 
     data.email = !empty(data.email) ? data.email : "";
-    data.password1 = !empty(data.password1) ? data.password1 : "";
+    data.password = !empty(data.password) ? data.password : "";
 
     if (Validator.isEmpty(data.email)) {
       errors.email = "Email is required";
@@ -29,10 +29,10 @@ module.exports = async function checkRegistrationFields(data) {
         
 
     }
-    if (Validator.isEmpty(data.password1)) {
+    if (Validator.isEmpty(data.password)) {
         errors.password1 = "Password is required";
     }
-    if (!Validator.isLength(data.password1, { min: 8, max: 120 })) {
+    if (!Validator.isLength(data.password, { min: 8, max: 120 })) {
         errors.password1 = "Passwords must be greater than 8 characters";
      }
   

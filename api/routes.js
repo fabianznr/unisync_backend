@@ -11,10 +11,9 @@ router.post("/register", async (req, res) => {
     if (!isValid) {
         return res.status(400).send(errors);
     }
-
     bcrypt.genSalt(12, async (err, salt) => {
         if (err) throw err;
-        bcrypt.hash(req.body.password1, salt, async (err, hash) => {
+        bcrypt.hash(req.body.password, salt, async (err, hash) => {
             if (err) throw err;
             try {
                 await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?,?,?)", [req.body.user, hash, req.body.email]);
