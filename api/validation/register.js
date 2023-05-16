@@ -18,7 +18,7 @@ module.exports = function checkRegistrationFields(data) {
         errors.email = "Email address is invalid";
     } else {
         try {
-            const result = db.pool.query("SELECT * FROM Account", [data.email]);
+            const result = await db.pool.query("SELECT * FROM Account", [data.email]);
             if (result.length > 0) {
                 errors.email = "This Email is already in use";
             }
