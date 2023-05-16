@@ -4,11 +4,11 @@ var mariadb = require('mariadb');
 // Create a connection pool
 var pool =
     mariadb.createPool({
-        host: “127.0.0.1”,
+        host: "127.0.0.1",
         port: 3306,
-        user: “dbuser”,
-        password: “WT2_Unisync”,
-        database: “unisync”
+        user: "dbuser",
+        password: "WT2_Unisync",
+        database: "unisync"
     });
 
 // Expose a method to establish connection with MariaDB SkySQL
