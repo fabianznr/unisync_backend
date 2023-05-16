@@ -19,9 +19,9 @@ router.post("/register", async (req, res) => {
             .replace(/\+/g, "-");
         return token;
     });
-    bcrypt.genSalt(12, (err, salt) => {
+    bcrypt.genSalt(12, async (err, salt) => {
         if (err) throw err;
-        bcrypt.hash(req.body.password1, salt, (err, hash) => {
+        bcrypt.hash(req.body.password1, salt, async (err, hash) => {
             if (err) throw err;
             try {
                 const result = await db.pool.query(`Insert into Account(Benutzer, Passwd, Email) values(${req.body.user},${hash},${req.body.email})`, [task.description]);
