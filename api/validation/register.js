@@ -19,7 +19,7 @@ module.exports = function checkRegistrationFields(data) {
     } else {
         try {
             const result = db.pool.query("Select Email from Account Where Email= ?", [data.email]);
-            if (result.lenght > 0) {
+            if (result.length > 0) {
                 errors.email = "This Email is already in use";
             }
         } catch (err) {
