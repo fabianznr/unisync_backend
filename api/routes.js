@@ -7,7 +7,7 @@ const db = require("./database");
 const checkRegistrationFields = require("./validation/register");
 
 router.post("/register", async (req, res) => {
-    const { errors, isValid } = checkRegistrationFields(req.body);
+    const { errors, isValid } = await checkRegistrationFields(req.body);
 
     if (!isValid) {
         return res.status(400).send(errors);
