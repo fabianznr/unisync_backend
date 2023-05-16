@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const db = require("./database");
 
-const checkRegistrationFields = require("../validation/register");
+const checkRegistrationFields = require("./validation/register");
 
 router.post("/register", async (req, res) => {
     const { errors, isValid } = checkRegistrationFields(req.body);
