@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\api",
+    "\\api\\validation"
   ],
-  "SelectedNode": "\\C:\\Users\\zoell\\Source\\Repos\\unisync_backend",
+  "SelectedNode": "\\api\\validation\\register.js",
   "PreviewInSolutionExplorer": false
 }

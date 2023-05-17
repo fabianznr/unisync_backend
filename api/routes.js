@@ -26,7 +26,9 @@ router.post("/register", async (req, res) => {
         })
     })
 });
+router.get("/login", async (req, res) => {
 
+});
 router.get("/users", async (req, res) => {
     try {
         const result = await db.pool.query("Select * from Account");

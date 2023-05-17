@@ -1,14 +1,17 @@
 // Use the MariaDB Node.js Connector
-var mariadb = require('mariadb');
+const mariadb = require('mariadb');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './.env' });
 
 // Create a connection pool
-var pool =
+const pool =
     mariadb.createPool({
-        host: "127.0.0.1",
-        port: 3306,
-        user: "dbuser",
-        password: "WT2_Unisync",
-        database: "unisync"
+        host: process.env.DATABASE_host,
+        port: process.env.DATABASE_port,
+        user: process.env.DATABASE_user,
+        password: process.env.DATABASE_password,
+        database: process.env.DATABASE
     });
 
 // Expose a method to establish connection with MariaDB SkySQL
