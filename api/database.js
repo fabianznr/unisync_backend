@@ -1,6 +1,6 @@
 // Use the MariaDB Node.js Connector
 const mariadb = require('mariadb');
-console.log(process.env);
+console.log(process.env);   
 // Create a connection pool
 const pool =
     mariadb.createPool({
