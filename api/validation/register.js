@@ -13,7 +13,6 @@ module.exports = async function checkRegistrationFields(data) {
 
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email is required";
-
     }
 
     if (!Validator.isEmail(data.email)) {
@@ -27,8 +26,6 @@ module.exports = async function checkRegistrationFields(data) {
         } catch (err) {
             errors.email = err;
         }
-
-
     }
     if (Validator.isEmpty(data.password)) {
         errors.password1 = "Password is required";
