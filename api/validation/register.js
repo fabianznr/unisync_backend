@@ -9,12 +9,13 @@ module.exports = async function checkRegistrationFields(data) {
 
     data.email = !empty(data.email) ? data.email : "";
     data.password = !empty(data.password) ? data.password : "";
+    data.user = !empty(data.user) ? data.user: "";
 
     if (Validator.isEmpty(data.email)) {
-      errors.email = "Email is required";
+        errors.email = "Email is required";
 
     }
-    
+
     if (!Validator.isEmail(data.email)) {
         errors.email = "Email address is invalid";
     } else {
@@ -24,9 +25,9 @@ module.exports = async function checkRegistrationFields(data) {
                 errors.email = "This Email is already in use";
             }
         } catch (err) {
-            errors.email = err
+            errors.email = err;
         }
-        
+
 
     }
     if (Validator.isEmpty(data.password)) {
@@ -34,8 +35,19 @@ module.exports = async function checkRegistrationFields(data) {
     }
     if (!Validator.isLength(data.password, { min: 8, max: 120 })) {
         errors.password1 = "Passwords must be greater than 8 characters";
-     }
-  
+    }
+    if (!Validator.isEmpty(data.user))
+    {
+        try {
+            const result = await db.pool.query("Select Benutzer from Account Where Benutzer= ?", [data.user]);
+            if (result.length > 0) {
+                errors.user = "This username is already taken";
+            }
+        } catch (err) {
+            errors.user = err;
+        }
+    }
+
     return {
         errors,
         isValid: empty(errors),
