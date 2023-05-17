@@ -31,6 +31,8 @@ router.get("/login", async (req, res) =>
         if (result.length > 0) {
             console.log(result);
         }
+    } catch (err) {
+        res.status(500).send(err)
     }
     
 });
