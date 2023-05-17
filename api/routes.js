@@ -5,9 +5,7 @@ const db = require("./database");
 
 const checkRegistrationFields = require("./validation/register");
 
-const dotenv = require('dotenv').config();
-
-dotenv.config({ path: './.env' });
+const dotenv = require('dotenv').config({ path: './.env' });
 
 console.log(process.env)
 
