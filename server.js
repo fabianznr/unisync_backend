@@ -4,6 +4,9 @@ const parser = require("body-parser");
 
 const routes = require("./api/routes");
 
+const dotenv = require('dotenv').config({ path: './api/.env' });
+
+console.log(process.env)
 
 app.use(parser.urlencoded({ extended: true }));
 
