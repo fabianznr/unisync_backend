@@ -1,8 +1,5 @@
 // Use the MariaDB Node.js Connector
 const mariadb = require('mariadb');
-const dotenv = require('dotenv');
-
-dotenv.config({ path: './.env' });
 
 // Create a connection pool
 const pool =

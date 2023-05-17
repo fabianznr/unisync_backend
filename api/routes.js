@@ -8,8 +8,6 @@ const checkRegistrationFields = require("./validation/register");
 router.post("/register", async (req, res) => {
     const { errors, isValid } = await checkRegistrationFields(req.body);
 
-    console.log(req.body);
-
     if (!isValid) {
         return res.status(400).send(errors);
     }
@@ -31,10 +29,6 @@ router.get("/login", async (req, res) => {
 });
 router.get("/users", async (req, res) => {
     try {
-        console.log(process.env.DATABASE_host)
-        console.log(process.env.DATABASE_port)
-        console.log(process.env.DATABASE_user)
-        console.log(process.env.DATABASE)
         const result = await db.pool.query("Select * from Account");
         res.status(200).send(result)
     } catch (err) {
