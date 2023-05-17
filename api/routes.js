@@ -5,6 +5,10 @@ const db = require("./database");
 
 const checkRegistrationFields = require("./validation/register");
 
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './.env' });
+
 router.post("/register", async (req, res) => {
     const { errors, isValid } = await checkRegistrationFields(req.body);
 
@@ -31,6 +35,10 @@ router.get("/login", async (req, res) => {
 });
 router.get("/users", async (req, res) => {
     try {
+        console.log(process.env.DATABASE_host)
+        console.log(process.env.DATABASE_port)
+        console.log(process.env.DATABASE_user)
+        console.log(process.env.DATABASE)
         const result = await db.pool.query("Select * from Account");
         res.status(200).send(result)
     } catch (err) {
