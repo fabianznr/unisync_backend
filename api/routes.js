@@ -5,9 +5,11 @@ const db = require("./database");
 
 const checkRegistrationFields = require("./validation/register");
 
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
-dotenv.config({ path: './.env' });
+//dotenv.config({ path: './.env' });
+
+console.log(process.env)
 
 router.post("/register", async (req, res) => {
     const { errors, isValid } = await checkRegistrationFields(req.body);
