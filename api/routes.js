@@ -21,7 +21,17 @@ router.post("/register", async (req, res) => {
     }
 
 });
-router.get("/login", async (req, res) => {
+router.get("/login", async (req, res) =>
+{
+    const user = req.body.user;
+    const password = req.body.password;
+
+    try {
+        const result = await db.pool.query("Select * from Account Where Benutzer = ?", [user]);
+        if (result.length > 0) {
+            console.log(result);
+        }
+    }
     
 });
 router.get("/users", async (req, res) => {
