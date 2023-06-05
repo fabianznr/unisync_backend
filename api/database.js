@@ -20,7 +20,7 @@ module.exports.db_test = async function conTest() {
     let conn;
     try {
         conn = await pool.getConnection();
-
+        print(conn);
         return await conn.query("Select * from Account");
     }
     finally {
