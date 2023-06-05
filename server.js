@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const parser = require("body-parser");
 
-import routes from "./api/routes.mjs";
+import { routes } from "./api/routes.mjs";
 
 
 
