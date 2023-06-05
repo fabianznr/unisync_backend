@@ -2,7 +2,7 @@ import Validator from "validator";
 import { ifEmpty } from "./checkEmpty.js";
 import { db } from"../database.js";
 
-module.exports = async function checkRegistrationFields(data) {
+export async function checkRegistrationFields(data) {
 
     let errors = {};
 
