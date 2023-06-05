@@ -15,11 +15,11 @@ router.post("/register", async (req, res) => {
         return res.status(400).send(errors);
     }
 
-    register(req, res);
+    await register(req, res);
 });
 router.post("/login", async (req, res) =>
 {
-    login(req, res);
+    await login(req, res);
     
 });
 router.get("/users", async (req, res) => {
@@ -32,5 +32,5 @@ router.get("/users", async (req, res) => {
 });
 
 router.get("/db_test", async (req, res) => {
-    conTest();
+    await conTest();
 });
