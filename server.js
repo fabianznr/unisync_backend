@@ -5,6 +5,9 @@ const app = express();
 import parser from "body-parser";
 import { router } from "./api/routes.js";
 
+import crypto from 'crypto';
+
+print(crypto.randomBytes(64).toString('hex'))
 
 app.use(parser.urlencoded({ extended: true }));
 
