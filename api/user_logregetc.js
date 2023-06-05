@@ -32,4 +32,5 @@ const register = async function register(req, res) {
     }
 }
 
-module.exports = { login, register };
+exports.login = login;
+exports.register = register;
