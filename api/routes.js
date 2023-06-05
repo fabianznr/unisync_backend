@@ -4,9 +4,6 @@ const { login, register } = require("./user_logregetc.js");
 const { query, db_test } = require("./database.js");
 
 
-
-export const router = express.Router();
-
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
     const { errors, isValid } = await checkRegistrationFields(req.body);
@@ -35,3 +32,4 @@ router.get("/db_test", async (req, res) => {
     await db_test();
 });
 
+modules.exports.router = router;
