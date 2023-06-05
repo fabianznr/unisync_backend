@@ -1,12 +1,11 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 const express = require("express");
-const parser = require("body-parser");
-const { router }  = require("./api/routes.js");
 
-dotenv.config({ path: './api/.env' })
-
+dotenv.config({ path: './api/.env' });
 const app = express();
 
+const parser = require("body-parser");
+const { router }  = require("./api/routes.js");
 
 
 app.use(parser.urlencoded({ extended: true }));
