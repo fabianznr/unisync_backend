@@ -1,10 +1,8 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import express from "express";
-
-dotenv.config({ path: './api/.env' });
 const app = express();
 
-import parser from "body-parser");
+import parser from "body-parser";
 import { router } from "./api/routes.js";
 
 
