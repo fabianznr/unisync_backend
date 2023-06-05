@@ -29,4 +29,4 @@ router.get("/users", async (req, res) => {
     }
 });
 
-exports.routes = router;
+module.exports = { router };

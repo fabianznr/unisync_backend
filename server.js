@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const parser = require("body-parser");
 
-import { routes } from "./api/routes.mjs";
+import { router } from "./api/routes.mjs";
 
 
 
@@ -11,7 +11,7 @@ app.use(parser.urlencoded({ extended: true }));
 
 app.use(parser.json());
 
-app.use("/v1", routes);
+app.use("/v1", router);
 
 const port = process.env.PORT || 3000;
 
