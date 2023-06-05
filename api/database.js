@@ -11,7 +11,7 @@ const pool =
         database: process.env.DATABASE
     });
 
-exports.db = Object.freeze({
+export const db = Object.freeze({
     pool: pool
 });
 
