@@ -32,4 +32,4 @@ router.get("/db_test", async (req, res) => {
     await db_test();
 });
 
-modules.exports.router = router;
+module.exports.router = router;

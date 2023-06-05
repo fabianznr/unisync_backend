@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { query } = require("./database.js");
 
-modules.exports.login =  async function login(req, res) {
+module.exports.login =  async function login(req, res) {
 
     const user = req.body.user;
     const password = req.body.password;
@@ -21,7 +21,7 @@ modules.exports.login =  async function login(req, res) {
     }
 }
 
-modules.exports.register = async function register(req, res) {
+module.exports.register = async function register(req, res) {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     try {
