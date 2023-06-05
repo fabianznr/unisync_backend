@@ -12,6 +12,6 @@ const pool =
     });
 
 // Expose a method to establish connection with MariaDB SkySQL
-module.exports = Object.freeze({
+exports.db = Object.freeze({
     pool: pool
 });
