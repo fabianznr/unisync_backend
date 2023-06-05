@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const parser = require("body-parser");
 
-const routes = require("./api/routes");
+const routes = require("./api/routes.mjs");
 
 
 
