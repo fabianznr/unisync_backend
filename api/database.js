@@ -16,4 +16,4 @@ const db = Object.freeze({
 });
 
 // Expose a method to establish connection with MariaDB SkySQL
-exports.db = db;
+module.exports = db;
