@@ -1,4 +1,3 @@
-
 const Validator = require("validator");
 const empty = require("./checkEmpty");
 const db = require("../database");
