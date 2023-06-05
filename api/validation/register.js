@@ -1,8 +1,8 @@
-const Validator = require("validator");
-const ifEmpty = require("./checkEmpty.js");
-const db = require("../database.js");
+import Validator from "validator";
+import ifEmpty from "./checkEmpty.js";
+import { query } from "../database.js"; 
 
-module.exports.checkRegistrationFields = async function checkRegistrationFields(data) {
+export async function checkRegistrationFields(data) {
 
     let errors = {};
 
@@ -18,7 +18,7 @@ module.exports.checkRegistrationFields = async function checkRegistrationFields(
         errors.email = "Email address is invalid";
     } else {
         try {
-            const result = await db.pool.query("Select Email from Account Where Email= ?", [data.email]);
+            const result = await query("Select Email from Account Where Email= ?", [data.email]);
             if (result.length > 0) {
                 errors.email = "This Email is already in use";
             }
@@ -35,7 +35,7 @@ module.exports.checkRegistrationFields = async function checkRegistrationFields(
     if (!Validator.isEmpty(data.user))
     {
         try {
-            const result = await db.pool.query("Select Benutzer from Account Where Benutzer= ?", [data.user]);
+            const result = await query("Select Benutzer from Account Where Benutzer= ?", [data.user]);
             if (result.length > 0) {
                 errors.user = "This username is already taken";
             }
