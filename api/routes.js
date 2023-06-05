@@ -1,7 +1,7 @@
 import express from "express";
 import { checkRegistrationFields } from "./validation/register.js";
 import { login, register } from "./user_logregetc.js";
-import { query } from "./database.js";
+import { query, conTest } from "./database.js";
 
 
 
@@ -32,5 +32,5 @@ router.get("/users", async (req, res) => {
 });
 
 router.get("/db_test", async (req, res) => {
-    res.status(200).send(db.pool)
+    conTest();
 });

@@ -13,8 +13,17 @@ const pool =
 
 export async function query(text) {
 
-        return pool.query(text)
+        return await pool.query(text)
 }
+export async function conTest() {
+    let conn;
+    try {
+        conn = await pool.getConnection();
 
+        return await conn.query("Select * from Account");
+    }
+    finally {
+        if (conn) conn.release(); //release to pool
+}
 
 // Expose a method to establish connection with MariaDB SkySQL
