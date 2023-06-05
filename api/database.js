@@ -1,5 +1,5 @@
 // Use the MariaDB Node.js Connector
-import { mariadb } from 'mariadb';
+import mariadb from 'mariadb';
 console.log(process.env);   
 // Create a connection pool
 const pool =
@@ -11,8 +11,10 @@ const pool =
         database: process.env.DATABASE
     });
 
-export const db = Object.freeze({
-    pool: pool
-});
+export async function query(text) {
+
+        return pool.query(text)
+}
+
 
 // Expose a method to establish connection with MariaDB SkySQL

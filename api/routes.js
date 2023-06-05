@@ -1,7 +1,7 @@
 import express from "express";
 import { checkRegistrationFields } from "./validation/register.js";
 import { login, register } from "./user_logregetc.js";
-import { db } from "./database.js";
+import { query } from "./database.js";
 
 
 
@@ -24,7 +24,7 @@ router.post("/login", async (req, res) =>
 });
 router.get("/users", async (req, res) => {
     try {
-        const result = await db.pool.query("Select * from Account");
+        const result = await query("Select * from Account");
         res.status(200).send(result)
     } catch (err) {
         res.status(500).send(err)
