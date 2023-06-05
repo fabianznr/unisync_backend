@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const { query } = require("./database.js");
+import bcrypt from "bcryptjs";
+import { query } from"./database.js";
 
-module.exports.login =  async function login(req, res) {
+export async function login(req, res) {
 
     const user = req.body.user;
     const password = req.body.password;
@@ -21,7 +21,7 @@ module.exports.login =  async function login(req, res) {
     }
 }
 
-module.exports.register = async function register(req, res) {
+export async function register(req, res) {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     try {

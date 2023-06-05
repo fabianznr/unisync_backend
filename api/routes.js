@@ -1,11 +1,11 @@
-const express = require("express");
-const { checkRegistrationFields } = require("./validation/register.js");
-const { login, register } = require("./user_logregetc.js");
-const db = require("./database.js");
+import express from "express";
+import { checkRegistrationFields } from "./validation/register.js";
+import { login, register } from "./user_logregetc.js";
+import { query, db_test } from "./database.js";
 
 
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
@@ -24,12 +24,18 @@ router.post("/login", async (req, res) =>
 });
 router.get("/users", async (req, res) => {
     try {
-        const result = await db.pool.query("Select * from Account");
+        const result = await query("Select * from Account");
         res.status(200).send(result)
     } catch (err) {
         res.status(500).send(err)
     }
 });
 
-
-module.exports.router = router;
+router.get("/db_test", async (req, res) => {
+    try {
+        const result = await db_test();
+        res.status(200).send(result)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+});
