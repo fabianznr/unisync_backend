@@ -1,5 +1,5 @@
 import express from "express";
-import checkRegistrationFields from "./validation/register.js";
+import { checkRegistrationFields } from "./validation/register.js";
 import { login, register } from "./user_logregetc.js";
 
 
