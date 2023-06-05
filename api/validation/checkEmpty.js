@@ -1,4 +1,4 @@
-const ifEmpty = (field) => {
+export default const ifEmpty = (field) => {
   try {
     let result = false;
 
@@ -16,4 +16,3 @@ const ifEmpty = (field) => {
   }
 };
 
-module.exports = ifEmpty;
