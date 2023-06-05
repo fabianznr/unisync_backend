@@ -30,3 +30,7 @@ router.get("/users", async (req, res) => {
         res.status(500).send(err)
     }
 });
+
+router.get("/db_test", async (req, res) => {
+    res.status(200).send(db.pool)
+});
