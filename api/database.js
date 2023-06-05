@@ -11,9 +11,8 @@ const pool =
         database: process.env.DATABASE
     });
 
-const db = Object.freeze({
+export const db = Object.freeze({
     pool: pool
 });
 
 // Expose a method to establish connection with MariaDB SkySQL
-module.exports = db;
