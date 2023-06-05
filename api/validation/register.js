@@ -1,6 +1,6 @@
-import Validator from "validator";
-import { ifEmpty } from "./checkEmpty.js";
-import { query } from"../database.js";
+const Validator = require("validator");
+const ifEmpty = require("./checkEmpty.js");
+const query = require("../database.js");
 
 export async function checkRegistrationFields(data) {
 

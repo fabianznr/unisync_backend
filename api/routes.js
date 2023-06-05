@@ -1,7 +1,7 @@
-import express from "express";
-import { checkRegistrationFields } from "./validation/register.js";
-import { login, register } from "./user_logregetc.js";
-import { query, conTest } from "./database.js";
+const express = require("express");
+const { checkRegistrationFields } = require("./validation/register.js");
+const { login, register } = require("./user_logregetc.js");
+const { query, conTest } = require("./database.js");
 
 
 
