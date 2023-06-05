@@ -1,14 +1,14 @@
 import Validator from "validator";
-import empty from "./checkEmpty.js";
+import { ifEmpty } from "./checkEmpty.js";
 import { db } from"../database.js";
 
 module.exports = async function checkRegistrationFields(data) {
 
     let errors = {};
 
-    data.email = !empty(data.email) ? data.email : "";
-    data.password = !empty(data.password) ? data.password : "";
-    data.user = !empty(data.user) ? data.user: "";
+    data.email = !ifEmpty(data.email) ? data.email : "";
+    data.password = !ifEmpty(data.password) ? data.password : "";
+    data.user = !ifEmpty(data.user) ? data.user: "";
 
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email is required";
@@ -46,6 +46,6 @@ module.exports = async function checkRegistrationFields(data) {
 
     return {
         errors,
-        isValid: empty(errors),
+        isValid: ifEmpty(errors),
     };
 };

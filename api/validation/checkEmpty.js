@@ -1,4 +1,4 @@
-export default const ifEmpty = (field) => {
+export const ifEmpty = (field) => {
   try {
     let result = false;
 
