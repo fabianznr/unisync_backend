@@ -1,7 +1,7 @@
 import express from "express";
 import { checkRegistrationFields } from "./validation/register.js";
 import { login, register } from "./user_logregetc.js";
-import db from "./database.js";
+import { db } from "./database.js";
 
 
 
