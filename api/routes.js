@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-
-const checkRegistrationFields = require("./validation/register");
+import express from "express";
+import checkRegistrationFields from "./validation/register";
 import { login, register } from "./user_logregetc.js";
+
+
+const router = express.Router();
 
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User

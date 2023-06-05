@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
-const db = require("./database");
+import bcrypt from "bcryptjs";
+import db from "./database";
 
 export async function login(req, res) {
 

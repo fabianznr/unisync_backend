@@ -1,6 +1,6 @@
-const Validator = require("validator");
-const empty = require("./checkEmpty");
-const db = require("../database");
+import Validator from "validator";
+import empty from "./checkEmpty";
+import db from"../database";
 
 module.exports = async function checkRegistrationFields(data) {
 
