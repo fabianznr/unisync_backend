@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import * as e from "express";
 import { db } from"./database.js";
 
 export async function login(req, res) {
@@ -7,7 +8,7 @@ export async function login(req, res) {
     const password = req.body.password;
 
     try {
-        const result = await db.pool.query('Select * from Account Where Benutzer = ${user}');
+        const result = await db.pool.query('Select * from Account Where Benutzer = ?', [user]);
         if (result.length > 0) {
             const hashedPassword = result[0].Passwd;
             if (await bcrypt.compare(password, hashedPassword)) {
@@ -29,7 +30,7 @@ export async function register(req, res) {
 
     const hashedPw= await bcrypt.hash(req.body.password, 10);
     try {
-        await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(${user},${hashedPw},${email})", );
+        await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?, ?, ?)", [user, hashedPw, email]);
         res.status(200).send("Registration sucessfull");
     } catch (err) {
         res.status(500).send(err);
