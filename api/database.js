@@ -15,6 +15,7 @@ export async function query(text) {
 
         return await pool.query(text)
 }
+
 export async function conTest() {
     let conn;
     try {
@@ -24,6 +25,7 @@ export async function conTest() {
     }
     finally {
         if (conn) conn.release(); //release to pool
+    }
 }
 
 // Expose a method to establish connection with MariaDB SkySQL
