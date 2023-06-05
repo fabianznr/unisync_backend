@@ -1,7 +1,7 @@
 const express = require("express");
 const { checkRegistrationFields } = require("./validation/register.js");
 const { login, register } = require("./user_logregetc.js");
-const { query, conTest } = require("./database.js");
+const { query, db_test } = require("./database.js");
 
 
 
@@ -32,5 +32,6 @@ router.get("/users", async (req, res) => {
 });
 
 router.get("/db_test", async (req, res) => {
-    await conTest();
+    await db_test();
 });
+

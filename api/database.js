@@ -11,12 +11,12 @@ const pool =
         database: process.env.DATABASE
     });
 
-export async function query(text) {
+module.exports.query =  async function query(text) {
 
         return await pool.query(text)
 }
 
-export async function conTest() {
+module.exports.db_test = async function conTest() {
     let conn;
     try {
         conn = await pool.getConnection();

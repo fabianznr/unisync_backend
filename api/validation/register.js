@@ -2,7 +2,7 @@ const Validator = require("validator");
 const ifEmpty = require("./checkEmpty.js");
 const query = require("../database.js");
 
-export async function checkRegistrationFields(data) {
+modules.exports.checkRegistrationFields = async function checkRegistrationFields(data) {
 
     let errors = {};
 
