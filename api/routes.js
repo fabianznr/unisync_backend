@@ -3,7 +3,7 @@ import { checkRegistrationFields } from "./validation/register.js";
 import { login, register } from "./user_logregetc.js";
 
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
@@ -28,5 +28,3 @@ router.get("/users", async (req, res) => {
         res.status(500).send(err)
     }
 });
-
-exports.router = router;
