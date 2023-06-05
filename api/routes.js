@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 
 const checkRegistrationFields = require("./validation/register");
-import { login, register } from "./user_logregetc.mjs";
+import { login, register } from "./user_logregetc.js";
 
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
