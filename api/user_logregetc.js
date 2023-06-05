@@ -7,7 +7,7 @@ export async function login(req, res) {
     const password = req.body.password;
 
     try {
-        const result = await query("Select * from Account Where Benutzer = ?", [user]);
+        const result = await query('Select * from Account Where Benutzer = ${user}');
         if (result.length > 0) {
             const hashedPassword = result[0].Passwd;
             if (await bcrypt.compare(password, hashedPassword)) {
