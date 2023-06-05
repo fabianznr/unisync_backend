@@ -1,5 +1,5 @@
 import Validator from "validator";
-import ifEmpty from "./checkEmpty.js";
+import {ifEmpty} from "./checkEmpty.js";
 import { query } from "../database.js"; 
 
 export async function checkRegistrationFields(data) {
