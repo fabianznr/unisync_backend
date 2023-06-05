@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const db = require("./database");
 
-const login = async function login(req, res) {
+export async function login(req, res) {
 
     const user = req.body.user;
     const password = req.body.password;
@@ -21,7 +21,7 @@ const login = async function login(req, res) {
     }
 }
 
-const register = async function register(req, res) {
+export async function register(req, res) {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     try {
@@ -31,6 +31,3 @@ const register = async function register(req, res) {
         res.status(500).send(err);
     }
 }
-
-exports.login = login;
-exports.register = register;
