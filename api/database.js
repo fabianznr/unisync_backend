@@ -11,21 +11,8 @@ const pool =
         database: process.env.DATABASE
     });
 
-module.exports.query =  async function query(text) {
-
-        return await pool.query(text)
-}
-
-module.exports.db_test = async function conTest() {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        print(conn);
-        return await conn.query("Select * from Account");
-    }
-    finally {
-        if (conn) conn.release(); //release to pool
-    }
-}
+module.exports = Object.freeze({
+    pool: pool
+});
 
 // Expose a method to establish connection with MariaDB SkySQL

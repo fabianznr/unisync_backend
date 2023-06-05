@@ -1,7 +1,7 @@
 const express = require("express");
 const { checkRegistrationFields } = require("./validation/register.js");
 const { login, register } = require("./user_logregetc.js");
-const { query, db_test } = require("./database.js");
+const db = require("./database.js");
 
 
 
@@ -24,15 +24,12 @@ router.post("/login", async (req, res) =>
 });
 router.get("/users", async (req, res) => {
     try {
-        const result = await query("Select * from Account");
+        const result = await db.pool.query("Select * from Account");
         res.status(200).send(result)
     } catch (err) {
         res.status(500).send(err)
     }
 });
 
-router.get("/db_test", async (req, res) => {
-    await db_test();
-});
 
 module.exports.router = router;
