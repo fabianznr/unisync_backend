@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import db from "./database";
+import db from "./database.js";
 
 export async function login(req, res) {
 
