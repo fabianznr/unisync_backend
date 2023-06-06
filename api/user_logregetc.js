@@ -44,5 +44,5 @@ function generateAccessToken(user) {
 }
 
 export function authenticateUser(token) {
-    const token = token
+
 }
