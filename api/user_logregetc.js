@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
-import { db } from"./database.js";
+import { db } from "./database.js";
+import jwt from ('jsonwebtoken')
 
 export async function login(req, res) {
 
@@ -11,7 +12,8 @@ export async function login(req, res) {
         if (result.length > 0) {
             const hashedPassword = result[0].Passwd;
             if (await bcrypt.compare(password, hashedPassword)) {
-                res.status(200).send("Logged In!");
+                token = generateAccessToken(user)
+                res.status(200).json(token);
             } else {
                 res.status(401).send("Password incorrect!");
             }
@@ -30,8 +32,17 @@ export async function register(req, res) {
     const hashedPw= await bcrypt.hash(req.body.password, 10);
     try {
         await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?, ?, ?)", [user, hashedPw, email]);
-        res.status(200).send("Registration sucessfull");
+        token = generateAccessToken(user)
+        res.status(201).json(token);
     } catch (err) {
         res.status(500).send(err);
     }
+}
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.TOKEN_SECRET, {expiresIn: '3600s'})    
+}
+
+export function authenticateUser(token) {
+    const token = token
 }

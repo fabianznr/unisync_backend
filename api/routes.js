@@ -31,3 +31,16 @@ router.get("/users", async (req, res) => {
     }
 });
 
+router.get("modul", async (req, res) => {
+    
+    try {
+        const id = req.param('id');
+
+        const result = await db.pool.query("Select * from Account where AccountID = ?", [id]);
+        res.status(200).send(result);
+
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
+
