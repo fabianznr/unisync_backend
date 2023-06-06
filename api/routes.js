@@ -31,7 +31,7 @@ router.get("/users", async (req, res) => {
     }
 });
 
-router.get("modul", async (req, res) => {
+router.get("/modul", async (req, res) => {
     
     try {
         const id = req.param('id');
