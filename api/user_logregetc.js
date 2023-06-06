@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { db } from "./database.js";
-import jwt from ('jsonwebtoken')
+import jwt from 'jsonwebtoken';
 
 export async function login(req, res) {
 
