@@ -49,7 +49,7 @@ router.get("/modul", async (req, res) => {
 router.get("/completed", async (req, res) => {
     try {
         const accountId = authenticateUser(req);
-
+        console.log(accountId);
         const query =   `SELECT M.Name
                          FROM Modul M
                          JOIN ModulAbgeschlossen MA ON M.ModulID = MA.ModulID
