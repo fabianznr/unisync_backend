@@ -2,10 +2,12 @@ import express from "express";
 import { checkRegistrationFields } from "./validation/register.js";
 import { login, register, authenticateUser } from "./user_logregetc.js";
 import { db } from "./database.js";
-
+import { log } from "log-to-file";
 
 
 export const router = express.Router();
+
+log(new Date());
 
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
@@ -49,7 +51,6 @@ router.get("/modul", async (req, res) => {
 router.get("/completed", async (req, res) => {
     try {
         const accountId = await authenticateUser(req);
-        console.log(accountId);
         const query =   `SELECT M.Name
                          FROM Modul M
                          JOIN ModulAbgeschlossen MA ON M.ModulID = MA.ModulID
