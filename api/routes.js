@@ -48,4 +48,7 @@ router.get("/timetable_data", async (req, res) => {
     try {
         const id = req.param('id');
     }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
