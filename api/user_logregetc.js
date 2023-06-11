@@ -40,9 +40,8 @@ export async function register(req, res) {
 }
 
 async function generateAccessToken(user) {
-    const expiresIn = '1h'
     try {
-        const token = jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn });
+        const token = jwt.sign({ user: user } , process.env.TOKEN_SECRET,  expiresIn: '1h' );
         const result = await db.pool.query('Select AccountID from Account Where Benutzer = ?', [user]);
         console.log(result);
         return token;
