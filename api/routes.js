@@ -48,7 +48,7 @@ router.get("/modul", async (req, res) => {
 
 router.get("/completed", async (req, res) => {
     try {
-        const accountId = authenticateUser(req);
+        const accountId = await authenticateUser(req);
         console.log(accountId);
         const query =   `SELECT M.Name
                          FROM Modul M
