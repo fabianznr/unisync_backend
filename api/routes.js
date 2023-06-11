@@ -47,7 +47,5 @@ router.get("/modul", async (req, res) => {
 router.get("/timetable_data", async (req, res) => {
     try {
         const id = req.param('id');
-
-        const result
     }
 })
