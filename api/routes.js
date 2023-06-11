@@ -88,9 +88,36 @@ router.get("/running", async (req, res) => {
     }
 })
 
+router.get("/timetable", async (req, res) => {
+    try {
+        const accountId = await authenticateUser(req);
+        const query = ` SELECT S.Name AS StundenplanName
+                        FROM Stundenplan S
+                        JOIN Account A ON S.AccountID = A.AccountID
+                        WHERE S.AccountID = ? OR (S.Public = 1 AND A.StudiengangID = S.StudiengangID)`;
+
+        const result = await db.pool.query(query, [accountId]);
+
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).send(err)
+    }
+
+})
+
 router.get("/timetable_data", async (req, res) => {
     try {
-        const id = req.param('id');
+        const timetableID = req.param('id');
+
+        const accountId = await authenticateUser(req);
+        const query = ` SELECT SM.StundenplanModulId, M.ModulID, M.Name, M.Professor
+                        FROM StundenplanModul SM
+                        JOIN Modul M ON SM.ModulID = M.ModulID
+                        WHERE SM.StundenplanID = ?`;
+
+        const result = await db.pool.query(query, [timetableID]);
+
+        res.status(200).json(result);
     }
     catch (err) {
         res.status(400).send(err);
