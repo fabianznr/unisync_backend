@@ -56,14 +56,13 @@ async function generateAccessToken(user) {
 export async function authenticateUser(req) {
     const token = req.headers.authorization.split(' ')[1];
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        const result = await db.pool.query('SELECT * FROM AccessToken WHERE Token = ?', [token])
-        if (result && result.length > 0) {
-            return result[0].AccountID
-        }
-        else {
-            throw new Error("Authentication failed");
-        }
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    const result = await db.pool.query('SELECT * FROM AccessToken WHERE Token = ?', [token])
+    if (result && result.length > 0) {
+        return result[0].AccountID
     }
+    else {
+        throw new Error("Authentication failed");
+    }
+
 }
