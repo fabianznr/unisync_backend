@@ -36,7 +36,7 @@ router.get("/modul", async (req, res) => {
     try {
         const id = req.param('id');
 
-        const result = await db.pool.query("Select * from Account where AccountID = ?", [id]);
+        const result = await db.pool.query("Select * from Modul where ModulId = ?", [id]);
         res.status(200).send(result);
 
     } catch (err) {
@@ -44,3 +44,10 @@ router.get("/modul", async (req, res) => {
     }
 })
 
+router.get("/timetable_data", async (req, res) => {
+    try {
+        const id = req.param('id');
+
+        const result
+    }
+})
