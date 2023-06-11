@@ -1,9 +1,11 @@
 import 'dotenv/config';
 import express from "express";
 const app = express();
+import log from "log-to-file";
 
 import parser from "body-parser";
 import { router } from "./api/routes.js";
+
 
 app.use(parser.urlencoded({ extended: true }));
 
