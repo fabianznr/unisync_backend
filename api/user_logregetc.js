@@ -41,16 +41,16 @@ export async function register(req, res) {
 }
 
 async function generateAccessToken(user) {
-    try {
-        const token = jwt.sign({ user: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-        const expirationTimestamp = new Date(Date.now() + (60 * 60 * 1000));
-        const result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
-        const accountID = result[0].AccountID
-        await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
-        const currentDate = new Date();
-        result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? '[currentDate, accountID]);
-        return token;
-    }  
+
+    const token = jwt.sign({ user: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+    const expirationTimestamp = new Date(Date.now() + (60 * 60 * 1000));
+    const result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
+    const accountID = result[0].AccountID
+    await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
+    const currentDate = new Date();
+    result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? '[currentDate, accountID]);
+    return token;
+ 
 }
 
 export async function authenticateUser(req) {
