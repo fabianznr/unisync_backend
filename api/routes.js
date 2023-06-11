@@ -2,7 +2,7 @@ import express from "express";
 import { checkRegistrationFields } from "./validation/register.js";
 import { login, register, authenticateUser } from "./user_logregetc.js";
 import { db } from "./database.js";
-
+import log from "log-to-file";
 
 
 export const router = express.Router();
@@ -36,6 +36,8 @@ router.get("/users", async (req, res) => {
 router.get("/modul", async (req, res) => {
 
     try {
+        const accountId = await authenticateUser(req);
+
         const id = req.param('id');
 
         const result = await db.pool.query("Select * from Modul where ModulId = ?", [id]);
@@ -54,14 +56,38 @@ router.get("/completed", async (req, res) => {
                          JOIN ModulAbgeschlossen MA ON M.ModulID = MA.ModulID
                          WHERE MA.AccountId = ?`;
 
+        
         const result = await db.pool.query(query, [accountId]);
 
-        res.status(400).json(result);
+        log("Completed Request query: " + result)
+
+        res.status(200).json(result);
 
     } catch (err) {
         res.status(400).send(err);
     }
 })
+
+router.get("/running", async (req, res) => {
+    try {
+        const accountId = await authenticateUser(req);
+        const query =   `SELECT M.Name
+                         FROM Modul M
+                         JOIN ModulBelegt MB ON M.ModulID = MB.ModulID
+                         WHERE MB.AccountId = ?`;
+
+
+        const result = await db.pool.query(query, [accountId]);
+
+        log("Completed Request query: " + result)
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+})
+
 router.get("/timetable_data", async (req, res) => {
     try {
         const id = req.param('id');

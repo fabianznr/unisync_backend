@@ -15,4 +15,4 @@ app.use("/v1", router);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => log("[Server] online " + new Date()));
+app.listen(port, () => log("[Server] online "));

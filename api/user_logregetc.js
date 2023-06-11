@@ -34,6 +34,7 @@ export async function register(req, res) {
     try {
         await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?, ?, ?)", [user, hashedPw, email]);
         const token = await generateAccessToken(user)
+        log("Account creation : " + user + " " + query);
         res.status(201).header('Authorization', 'Bearer ' + token).json({ message: 'Registration complete' });
     } catch (err) {
         res.status(500).send(err);
