@@ -110,7 +110,7 @@ router.get("/timetable_data", async (req, res) => {
         const timetableID = req.param('id');
 
         const accountId = await authenticateUser(req);
-        const query = ` SELECT SM.StundenplanModulId, M.ModulID, M.Name, M.Professor
+        const query = ` SELECT SM.StundenplanModulId, M.ModulID, M.Name, M.Professor, SM.Startzeit, SM.Endzeit, SM.Typ, SM.Tag
                         FROM StundenplanModul SM
                         JOIN Modul M ON SM.ModulID = M.ModulID
                         WHERE SM.StundenplanID = ?`;
