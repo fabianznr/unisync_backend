@@ -52,7 +52,7 @@ async function generateAccessToken(user) {
     await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
     const currentDate = new Date(Date.now() + (60 * 60 * 1000));
     log(currentDate)
-    result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? ', [currentDate, accountID]);
+    result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= Convert(timestamp, ?) AND AccountID = ? ', [currentDate, accountID]);
     log("Delted token from db: ");
     log(result);
     return token;
