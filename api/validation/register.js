@@ -27,10 +27,10 @@ export async function checkRegistrationFields(data) {
         }
     }
     if (Validator.isEmpty(data.password)) {
-        errors.password1 = "Password is required";
+        errors.password = "Password is required";
     }
     if (!Validator.isLength(data.password, { min: 8, max: 120 })) {
-        errors.password1 = "Passwords must be greater than 8 characters";
+        errors.password = "Passwords must be greater than 8 characters";
     }
     if (!Validator.isEmpty(data.user))
     {

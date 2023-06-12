@@ -45,7 +45,7 @@ async function generateAccessToken(user) {
 
     const token = jwt.sign({ user: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
     const expirationTimestamp = new Date(Date.now() + (60 * 60 * 1000));
-    const result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
+    let result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
     log(`Token Generation: User: ${user} found in db`)
     const accountID = result[0].AccountID;
     await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
