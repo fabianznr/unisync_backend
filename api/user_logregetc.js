@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { db } from "./database.js";
 import jwt from 'jsonwebtoken';
+import log from "log-to-file";
 
 export async function login(req, res) {
 
@@ -51,7 +52,7 @@ async function generateAccessToken(user) {
     await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
     const currentDate = new Date();
     result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? ', [currentDate, accountID]);
-    log(`Delete old Token: ${result}`)
+    log(`Delete old Token: ${result}`);
     return token;
  
 }
