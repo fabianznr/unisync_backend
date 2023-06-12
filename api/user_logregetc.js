@@ -35,7 +35,7 @@ export async function register(req, res) {
     try {
         await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?, ?, ?)", [user, hashedPw, email]);
         const token = await generateAccessToken(user)
-        log("Account creation : " + user + " " + query);
+        log(`Account creation : ${user} ` );
         res.status(201).header('Authorization', 'Bearer ' + token).json({ message: 'Registration complete' });
     } catch (err) {
         res.status(400).send(err);
@@ -52,7 +52,8 @@ async function generateAccessToken(user) {
     await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
     const currentDate = new Date();
     result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? ', [currentDate, accountID]);
-    log(`Delete old Token: ${result}`);
+    log("Delted token from db: ");
+    log(result);
     return token;
  
 }
