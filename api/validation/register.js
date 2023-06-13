@@ -6,9 +6,13 @@ export async function checkRegistrationFields(data) {
 
     let errors = {};
 
+    log(`Register Attempt: ${data.email} ${data.user}`);
+
     data.email = !ifEmpty(data.email) ? data.email : "";
     data.password = !ifEmpty(data.password) ? data.password : "";
     data.user = !ifEmpty(data.user) ? data.user: "";
+
+    
 
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email is required";
