@@ -32,8 +32,8 @@ export async function checkRegistrationFields(data) {
     if (Validator.isEmpty(data.password)) {
         errors.password = "Password is required";
     }
-    if (!Validator.isLength(data.password, { min: 8, max: 120 })) {
-        errors.password = "Passwords must be greater than 8 characters";
+    if (!Validator.matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")) {
+        errors.password = "Passwords must be greater than 8 characters and contain atleast one Upper and Lower case and a special Character.";
     }
     if (!Validator.isEmpty(data.user))
     {

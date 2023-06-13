@@ -45,24 +45,29 @@ export async function register(req, res) {
 async function generateAccessToken(user) {
 
     const token = jwt.sign({ user: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+
     const expirationTimestamp = new Date(Date.now() + (60 * 60 * 1000));
+
     let result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
     log(`Token Generation: User: ${user} found in db`)
     const accountID = result[0].AccountID;
+
     await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
+
     const currentDate = new Date(Date.now());
     const currentDateString = currentDate.toISOString();
-    log(currentDateString)
     result = await db.pool.query('DELETE FROM AccessToken WHERE expiresAt <= ? AND AccountID = ? ', [currentDateString, accountID]);
-    log("Delted token from db: ");
-    log(result);
+    log("Delted token from db");
+
     return token;
  
 }
 
 export async function authenticateUser(req) {
+
     const token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, process.env.TOKEN_SECRET);
+
     const result = await db.pool.query('SELECT * FROM AccessToken WHERE Token = ?', [token])
     if (result && result.length > 0) {
         return result[0].AccountID
