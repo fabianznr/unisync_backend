@@ -14,9 +14,9 @@ router.post("/register", async (req, res) => {
     if (!isValid) {
         return res.status(400).send(errors);
     }
-    else {
-        await register(req, res);
-    }
+    
+    await register(req, res);
+  
     
 });
 router.post("/login", async (req, res) =>
