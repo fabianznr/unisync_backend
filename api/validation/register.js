@@ -7,7 +7,7 @@ import log from "log-to-file";
 export async function checkRegistrationFields(data) {
 
     let schema = new pwValidator();
-    
+
     schema
         .is().min(8)                // Minimum length 8
         .is().max(100)              // Maximum length 100
