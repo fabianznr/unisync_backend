@@ -10,7 +10,7 @@ export const router = express.Router();
 router.post("/register", async (req, res) => {
     //Validates Data and Checks for existing Email and User
     const { errors, isValid } = await checkRegistrationFields(req.body);
-
+    log("test");
     if (!isValid) {
         return res.status(400).send(errors);
     }
