@@ -1,9 +1,20 @@
 import Validator from "validator";
 import {ifEmpty} from "./checkEmpty.js";
-import { db } from "../database.js"; 
+import { db } from "../database.js";
+import pwValidator from "password-validator" 
 import log from "log-to-file";
 
 export async function checkRegistrationFields(data) {
+
+    let schema = new pwValidator();
+    
+    schema
+        .is().min(8)                // Minimum length 8
+        .is().max(100)              // Maximum length 100
+        .has().uppercase()          // Must have uppercase letters
+        .has().lowercase()          // Must have lowercase letters
+        .has().digits(1)            // Must have 1 digit
+        .has().symbols();           // Must have symbols
 
     let errors = {};
 
