@@ -31,7 +31,7 @@ router.post("/login", async (req, res) =>
 });
 router.get("/users", async (req, res) => {
     try {
-        const result = await db.pool.query("Select * from Account");
+        const result = await db.pool.query("SELECT * FROM Account");
         res.status(200).send(result)
     } catch (err) {
         res.status(500).send(err)
@@ -41,11 +41,11 @@ router.get("/users", async (req, res) => {
 router.get("/modul", async (req, res) => {
 
     try {
-        const accountId = await authenticateUser(req);
+        await authenticateUser(req);
 
         const id = req.param('id');
 
-        const result = await db.pool.query("Select * from Modul where ModulId = ?", [id]);
+        const result = await db.pool.query("SELECT * FROM Modul WHERE ModulId = ?", [id]);
         res.status(200).json(result);
 
     } catch (err) {
@@ -53,10 +53,39 @@ router.get("/modul", async (req, res) => {
     }
 });
 
+router.post("/add_modul", async(req, res) => {
+    try{
+        const accountId = await authenticateUser(req);
+
+        const modulname = req.body.modulname;
+        const semester = req.body.semester;
+        const professor = req.body.professor;
+        
+        let query =     `INSERT INTO Modul (Name, Semester, Professor)
+                         VALUES(?,?,?)`;
+
+        let result = await db.pool.query(query, [modulname, semester, professor])
+        log(`Completed Request query: ${result} , to add Modul`)
+
+        const studiengangId = req.body.studiengangId;
+
+        query =         `INSERT INTO StudiengangModul (StudiengangID, ModulID)
+                         VALUES(?,?)`;
+
+        result = await db.pool.query(query, [studiengangId]);
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+    
+});
+
 router.get("/completed", async (req, res) => {
     try {
         const accountId = await authenticateUser(req);
-        const query =   `SELECT M.Name
+        const query =   `SELECT M.ModulID, M.Name
                          FROM Modul M
                          JOIN ModulAbgeschlossen MA ON M.ModulID = MA.ModulID
                          WHERE MA.AccountId = ?`;
@@ -64,7 +93,7 @@ router.get("/completed", async (req, res) => {
         
         const result = await db.pool.query(query, [accountId]);
 
-        log("Completed Request query: " + result)
+        log(`Completed Request query: ${result}`)
 
         res.status(200).json(result);
 
@@ -76,7 +105,7 @@ router.get("/completed", async (req, res) => {
 router.get("/running", async (req, res) => {
     try {
         const accountId = await authenticateUser(req);
-        const query =   `SELECT M.Name
+        const query =   `SELECT M.ModulId, M.Name
                          FROM Modul M
                          JOIN ModulBelegt MB ON M.ModulID = MB.ModulID
                          WHERE MB.AccountId = ?`;
@@ -84,7 +113,7 @@ router.get("/running", async (req, res) => {
 
         const result = await db.pool.query(query, [accountId]);
 
-        log("Completed Request query: " + result)
+        log(`Completed Request query: ${result}`)
 
         res.status(200).json(result);
 
@@ -114,7 +143,7 @@ router.get("/timetable_data", async (req, res) => {
     try {
         const timetableID = req.param('id');
 
-        const accountId = await authenticateUser(req);
+        await authenticateUser(req);
         const query = ` SELECT SM.StundenplanModulId, M.ModulID, M.Name, M.Professor, SM.Startzeit, SM.Endzeit, SM.Typ, SM.Tag
                         FROM StundenplanModul SM
                         JOIN Modul M ON SM.ModulID = M.ModulID

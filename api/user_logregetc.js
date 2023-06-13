@@ -9,7 +9,7 @@ export async function login(req, res) {
     const password = req.body.password;
 
     try {
-        const result = await db.pool.query('Select * from Account Where Benutzer = ?', [user]);
+        const result = await db.pool.query('SELECT * FROM Account WHERE Benutzer = ?', [user]);
         if (result.length > 0) {
             const hashedPassword = result[0].Passwd;
             if (await bcrypt.compare(password, hashedPassword)) {
@@ -33,7 +33,7 @@ export async function register(req, res) {
 
     const hashedPw= await bcrypt.hash(pw, 10);
     try {
-        await db.pool.query("Insert into Account(Benutzer, Passwd, Email) values(?, ?, ?)", [user, hashedPw, email]);
+        await db.pool.query("INSERT INTO Account(Benutzer, Passwd, Email) VALUES(?, ?, ?)", [user, hashedPw, email]);
         const token = await generateAccessToken(user)
         log(`Account creation : ${user} ` );
         res.status(201).header('Authorization', 'Bearer ' + token).json({ message: 'Registration complete' });
@@ -48,11 +48,11 @@ async function generateAccessToken(user) {
 
     const expirationTimestamp = new Date(Date.now() + (60 * 60 * 1000));
 
-    let result = await db.pool.query("Select AccountID from Account Where Benutzer = ?", [user]);
+    let result = await db.pool.query("SELECT AccountID FROM Account WHERE Benutzer = ?", [user]);
     log(`Token Generation: User: ${user} found in db`)
     const accountID = result[0].AccountID;
 
-    await db.pool.query('Insert Into AccessToken (Token, expiresAt, AccountID) Values (?, ?, ?)', [token, expirationTimestamp, accountID])
+    await db.pool.query('INSERT INTO AccessToken (Token, expiresAt, AccountID) VALUES (?, ?, ?)', [token, expirationTimestamp, accountID])
 
     const currentDate = new Date(Date.now());
     const currentDateString = currentDate.toISOString();
