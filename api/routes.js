@@ -29,6 +29,7 @@ router.post("/login", async (req, res) =>
     await login(req, res);
     
 });
+
 router.get("/users", async (req, res) => {
     try {
         const result = await db.pool.query("SELECT * FROM Account");
@@ -51,6 +52,25 @@ router.get("/modul", async (req, res) => {
     } catch (err) {
         res.status(400).send(err)
     }
+});
+
+router.get("/all_modul_from", async (req, res) => {
+    try {
+        const id = req.param('id');
+
+        const query = `  SELECT M.*
+                        FROM Modul M
+                        JOIN StudiengangModul SM ON M.ModulID = SM.ModulID
+                        JOIN Studiengang S ON SM.StudiengangID = S.StudiengangID
+                        WHERE S.StudiengangID = ?`;
+
+        const result = await db.pool.query(query, [id]);
+
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
 });
 
 router.post("/add_modul", async(req, res) => {
@@ -85,12 +105,12 @@ router.post("/add_modul", async(req, res) => {
 router.get("/completed", async (req, res) => {
     try {
         const accountId = await authenticateUser(req);
-        const query =   `SELECT M.ModulID, M.Name
+        const query = `SELECT M.ModulID, M.Name
                          FROM Modul M
                          JOIN ModulAbgeschlossen MA ON M.ModulID = MA.ModulID
                          WHERE MA.AccountId = ?`;
 
-        
+
         const result = await db.pool.query(query, [accountId]);
 
         log(`Completed Request query: ${result}`)
@@ -100,12 +120,12 @@ router.get("/completed", async (req, res) => {
     } catch (err) {
         res.status(400).send(err);
     }
-})
+});
 
 router.get("/running", async (req, res) => {
     try {
         const accountId = await authenticateUser(req);
-        const query =   `SELECT M.ModulId, M.Name
+        const query = `SELECT M.ModulId, M.Name
                          FROM Modul M
                          JOIN ModulBelegt MB ON M.ModulID = MB.ModulID
                          WHERE MB.AccountId = ?`;
@@ -120,7 +140,32 @@ router.get("/running", async (req, res) => {
     } catch (err) {
         res.status(400).send(err);
     }
-})
+});
+
+router.post("/add_kurs", async (req, res) => {
+    try {
+
+        const raum = req.body.raum;
+        const startzeit = req.body.startzeit;
+        const endzeit = req.body.endzeit;
+        const typ = req.body.typ;
+        const tag = req.body.tag;
+        const modulid = req.body.modulid;
+
+        const query = ` INSERT INTO Kurs
+                        (Raum, Startzeit, Endzeit, Typ, Tag, ModulID)
+                        VALUES(?, ?, ?, ?, ?, ?) `;
+
+        const result = await db.pool.query(query, [raum, startzeit, endzeit, typ, tag, modulid]);
+
+        log(`Completed Request query: ${result}`)
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
 
 router.get("/timetable", async (req, res) => {
     try {
@@ -137,7 +182,7 @@ router.get("/timetable", async (req, res) => {
         res.status(400).send(err)
     }
 
-})
+});
 
 router.get("/timetable_data", async (req, res) => {
     try {
