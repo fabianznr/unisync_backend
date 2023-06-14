@@ -144,10 +144,12 @@ router.get("/timetable_data", async (req, res) => {
         const timetableID = req.param('id');
 
         await authenticateUser(req);
-        const query = ` SELECT SM.StundenplanModulId, M.ModulID, M.Name, M.Professor, SM.Startzeit, SM.Endzeit, SM.Typ, SM.Tag
-                        FROM StundenplanModul SM
-                        JOIN Modul M ON SM.ModulID = M.ModulID
-                        WHERE SM.StundenplanID = ?`;
+        const query = ` SELECT K.KursID, K.Startzeit, K.Endzeit, K.Typ, K.Tag, M.Name AS Modulname, SP.Name AS Stundenplanname
+                        FROM Kurs K
+                        JOIN Modul M ON K.ModulID = M.ModulID
+                        JOIN StundenplanKurs SK ON K.KursID = SK.KursID
+                        JOIN Stundenplan SP ON SK.StundenplanID = SP.StundenplanID
+                        WHERE SP.StundenplanID = ?`;
 
         const result = await db.pool.query(query, [timetableID]);
 
